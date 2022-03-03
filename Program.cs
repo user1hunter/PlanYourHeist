@@ -7,12 +7,14 @@ namespace PlanYourHeist
     static void Main(string[] args)
     {
       Console.WriteLine("Plan Your Heist!");
+      Team HeistTeam = new Team();
+      int bankDifficulty = 100;
 
       do
       {
-        Member member = new Member();
+        Member newMember = new Member();
 
-        Console.WriteLine("Please enter Team Member's Name:");
+        Console.Write("Please enter Team Member's Name: ");
 
         string newMemberName = Console.ReadLine();
 
@@ -22,19 +24,56 @@ namespace PlanYourHeist
         }
         else
         {
-          member.Name = newMemberName;
+          newMember.Name = newMemberName;
 
-          Console.WriteLine("Please enter Team Member's Skill Level:");
-          member.SkillLevel = Int32.Parse(Console.ReadLine());
+          Console.Write("Please enter Team Member's Skill Level: ");
+          newMember.SkillLevel = int.Parse(Console.ReadLine());
 
-          Console.WriteLine("Please enter Team Member's Courage Level:");
-          member.CourageFactor = double.Parse(Console.ReadLine());
+          Console.Write("Please enter Team Member's Courage Level: ");
+          newMember.CourageFactor = double.Parse(Console.ReadLine());
 
+          HeistTeam.Members.Add(newMember);
 
-          Console.WriteLine($"{member.Name} has a skill level of {member.SkillLevel} and a courage factor of {member.CourageFactor}.");
+          if (HeistTeam.Members.Count > 1)
+          {
+            Console.WriteLine($"You have {HeistTeam.Members.Count} team members.");
+          }
+          else
+          {
+            Console.WriteLine($"You have {HeistTeam.Members.Count} team member.");
+          }
+
         }
 
       } while (true);
+
+      Console.WriteLine("How many heists would you like to simulate?");
+
+      int trialRuns = int.Parse(Console.ReadLine());
+
+      for (int i = 0; i <= trialRuns; i++)
+      {
+        int skillLevels = HeistTeam.TeamSkillLevel();
+
+        int heistLuck = new Random().Next(-10, 11);
+
+        bankDifficulty += heistLuck;
+
+        Console.WriteLine($"Team's Combined Skill Level: {skillLevels}");
+        Console.WriteLine($"Bank's Difficulty Level: {bankDifficulty}");
+
+
+        if (bankDifficulty > skillLevels)
+        {
+          Console.WriteLine("Your Heist Failed.");
+        }
+        else
+        {
+          Console.WriteLine("Your Heist was Successful!");
+        }
+
+      }
+
 
     }
   }

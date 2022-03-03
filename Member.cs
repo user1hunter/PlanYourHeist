@@ -8,5 +8,7 @@ namespace PlanYourHeist
 
     public double CourageFactor { get; set; }
 
+    public Member() { }
+
   }
 }
