@@ -7,8 +7,11 @@ namespace PlanYourHeist
     static void Main(string[] args)
     {
       Console.WriteLine("Plan Your Heist!");
+
       Team HeistTeam = new Team();
-      int bankDifficulty = 100;
+
+      Console.Write("Please Enter a number to represent the Bank's Difficulty: ");
+      int bankDifficulty = int.Parse(Console.ReadLine());
 
       do
       {
@@ -51,7 +54,9 @@ namespace PlanYourHeist
 
       int trialRuns = int.Parse(Console.ReadLine());
 
-      for (int i = 0; i <= trialRuns; i++)
+      int successfulRuns = trialRuns;
+
+      for (int i = 0; i < trialRuns; i++)
       {
         int skillLevels = HeistTeam.TeamSkillLevel();
 
@@ -66,6 +71,7 @@ namespace PlanYourHeist
         if (bankDifficulty > skillLevels)
         {
           Console.WriteLine("Your Heist Failed.");
+          successfulRuns--;
         }
         else
         {
@@ -74,6 +80,8 @@ namespace PlanYourHeist
 
       }
 
+      Console.WriteLine($"Successful Runs: {successfulRuns}");
+      Console.WriteLine($"Failed Runs: {trialRuns - successfulRuns}");
 
     }
   }
